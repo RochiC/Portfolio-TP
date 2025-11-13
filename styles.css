@@ -15,10 +15,11 @@
     box-sizing: border-box;
 }
 
-html ´{
+html {
     scroll-behavior: smooth;
     scrollbar-color: var(--primary-color) var(--darker-bg);
 }
+
 
 body {
     background-color: var(--dark-bgg);
@@ -81,7 +82,7 @@ header {
 .nav-links a {
     position: relative;
     font-size: .5rem;
-    transition: var(-o-transition);
+    transition: var(--transition);
 }
 
 .nav-links a:after {

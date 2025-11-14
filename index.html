@@ -14,9 +14,9 @@
         <nav id="navbar">
             <div class="logo">Rocio<span>Casares</span></div>
             <ul class="nav-links">
-                <li><a href="#inicio">Home</a></li>
-                <li><a href="#experiencia">About</a></li>
-                <li><a href="#proyectos">Services</a></li>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#experiencia">Experiencia</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
             </ul>
         </nav>
     </header>
@@ -29,8 +29,8 @@
                     <h2>Desarolladora Web</h2>
                     <p>Apasionada por crear experencias web únicas y funcionales. Siempre buscando aprender nuevas tecnologías y mejorar habilidades</p>
                     <div class="social-links">
-                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/rocío-maría-casares-8527a0371" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/RochiC" target="_blank"><i class="fab fa-github"></i></a>
                         <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
@@ -123,10 +123,12 @@
             </div>
         </div>
     </footer>
-    <!-- Three.js -->
+    <!-- SCRIPTS EXTERNOS -->
     <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/controls/OrbitControls.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <!-- Script de partículas -->
     <script>
     particlesJS('particles-js', {
         "particles": {
@@ -145,63 +147,70 @@
         "retina_detect": true
     });
     </script>
+
+    <!-- Script Cubo Rubik interactivo fondo -->
     <script>
-// Cubo Rubik interactivo
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById('rubik-bg').appendChild(renderer.domElement);
-const rubikGroup = new THREE.Group();
-const cubeSize = 1;
-const gap = 0.07;
-const colors = [0xffffff, 0xff0000, 0x0000ff, 0x00ff00, 0xffff00, 0xff8000];
-function makeStickeredCube(x, y, z) {
-    const materials = [
-        new THREE.MeshBasicMaterial({color: colors[0]}), // right
-        new THREE.MeshBasicMaterial({color: colors[1]}), // left
-        new THREE.MeshBasicMaterial({color: colors[2]}), // top
-        new THREE.MeshBasicMaterial({color: colors[3]}), // bottom
-        new THREE.MeshBasicMaterial({color: colors[4]}), // front
-        new THREE.MeshBasicMaterial({color: colors[5]}), // back
-    ];
-    const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-    const cube = new THREE.Mesh(geometry, materials);
-    cube.position.set(x, y, z);
-    return cube;
-}
-for (let x = -1; x <= 1; x++) {
-    for (let y = -1; y <= 1; y++) {
-        for (let z = -1; z <= 1; z++) {
-            const cube = makeStickeredCube(
-                x * (cubeSize + gap),
-                y * (cubeSize + gap),
-                z * (cubeSize + gap)
-            );
-            rubikGroup.add(cube);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('rubik-bg').appendChild(renderer.domElement);
+
+    const rubikGroup = new THREE.Group();
+    const cubeSize = 1;
+    const gap = 0.07;
+    const colors = [0xffffff, 0xff0000, 0x0000ff, 0x00ff00, 0xffff00, 0xff8000];
+    function makeStickeredCube(x, y, z) {
+        const materials = [
+            new THREE.MeshBasicMaterial({color: colors[0]}),
+            new THREE.MeshBasicMaterial({color: colors[1]}),
+            new THREE.MeshBasicMaterial({color: colors[2]}),
+            new THREE.MeshBasicMaterial({color: colors[3]}),
+            new THREE.MeshBasicMaterial({color: colors[4]}),
+            new THREE.MeshBasicMaterial({color: colors[5]})
+        ];
+        const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+        const cube = new THREE.Mesh(geometry, materials);
+        cube.position.set(x, y, z);
+        return cube;
+    }
+    for (let x = -1; x <= 1; x++) {
+        for (let y = -1; y <= 1; y++) {
+            for (let z = -1; z <= 1; z++) {
+                rubikGroup.add(makeStickeredCube(
+                    x * (cubeSize + gap),
+                    y * (cubeSize + gap),
+                    z * (cubeSize + gap)
+                ));
+            }
         }
     }
-}
-scene.add(rubikGroup);
-camera.position.set(4, 4, 7);
-camera.lookAt(0, 0, 0);
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.09;
-controls.enableZoom = false;
-controls.enablePan = false;
-function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
-}
-animate();
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+    scene.add(rubikGroup);
+
+    camera.position.set(4, 4, 7);
+    camera.lookAt(0, 0, 0);
+
+    // OrbitControls para interacción
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.09;
+    controls.enableZoom = false;
+    controls.enablePan = false;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
     </script>
 </body>
 </html>
+
 

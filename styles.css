@@ -81,7 +81,7 @@ header {
 
 .nav-links a {
     position: relative;
-    font-size: .5rem;
+    font-size: 0.8.rem;
     transition: var(--transition);
 }
 
@@ -143,10 +143,10 @@ section {
 
 .btn:hover {
     background-color: #5753d6;
-    transform: flex;
-    align-items: center;
-    padding-top: 5rem;
+    transform: scale(1.05);    
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.7); 
 }
+
 
 .hero {
     min-height: 100vh;

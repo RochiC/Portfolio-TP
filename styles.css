@@ -76,8 +76,11 @@ header {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    justify-content: space-evenly;  
+    width: 100%;  
+    gap: 0;  
 }
+
 
 .nav-links a {
     position: relative;
@@ -411,10 +414,13 @@ footer {
     }
 
     #navbar {
-        flex-direction: column;
-        padding: 1rem;
-        gap: 1rem;
-    }
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 1rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
     .hero-content, .nav-links {
         flex-direction: column;
